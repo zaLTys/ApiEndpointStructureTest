@@ -3,6 +3,7 @@ using ApiEndpointStructureTest.Models;
 using ApiEndpointStructureTest.Services;
 using Ardalis.ApiEndpoints;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace ApiEndpointStructureTest.Endpoints.Persons
 {
@@ -21,6 +22,10 @@ namespace ApiEndpointStructureTest.Endpoints.Persons
         public Update(IPersonsService personsService) { _personsService = personsService; }
 
         [HttpPut("persons/{id:guid}")]
+        [SwaggerOperation(Summary = "Update person",
+            Description = "Update person",
+            OperationId = "Person.Update",
+            Tags = new[] { "PersonEndpoint" })]
         public override async Task<Person> HandleAsync(
             [FromMultiSource]UpdateRequest request, CancellationToken cancellationToken = default)
         {
